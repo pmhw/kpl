@@ -1,0 +1,57 @@
+{include file="public/head_menu" / }
+<style>
+    body {
+        background-color: #ffffff;
+    }
+</style>
+<body> 
+<div class="layui-form layuimini-form">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label required">支付宝</label>
+        <div class="layui-input-block">
+            <input type="radio" name="alipay" value="off" title="关闭" {$Think.config.alipay=='off'?'checked=""':''}>
+            <input type="radio" name="alipay" value="jpay" title="捷支付" {$Think.config.alipay=='jpay'?'checked=""':''}>
+            <input type="radio" name="alipay" value="vpay" title="v免签" {$Think.config.alipay=='vpay'?'checked=""':''}>
+        </div>
+    </div>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label required">微信</label>
+        <div class="layui-input-block">
+            <input type="radio" name="wxpay" value="off" title="关闭" {$Think.config.wxpay=='off'?'checked=""':''}>
+            <input type="radio" name="wxpay" value="jpay" title="捷支付" {$Think.config.wxpay=='jpay'?'checked=""':''}>
+            <input type="radio" name="wxpay" value="vpay" title="v免签" {$Think.config.wxpay=='vpay'?'checked=""':''}>
+        </div>
+    </div>    
+    <tip style="margin:0px 0px 80px 100px;">由于静态缓存的原因，配置好后1分钟左右生效。或 关闭编译缓存opchche</tip>
+    <br>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/admin/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            //data.field
+            $.get('/pay_setting',data.field,function(res){
+                if(res.code>0){
+                    layer.msg('失败',{icon:2});
+                }else{
+                    layer.msg('成功',{icon:1});
+                }
+            });
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+{include file="public/head_menu"}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">订单编号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="work_order_number" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+       <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 批量结束 </button>
+            </div>
+        </script>
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">处理</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">结束</a>
+        </script>
+
+    </div>
+</div>
+<script src="__STATIC__/admin/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        table.render({
+            elem: '#currentTableId',
+            url: '/api_work_order_list',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [[
+                {type: "checkbox", width: 50},
+                {field: 'id', width: 80, title: 'ID', sort: true},
+                {field: 'work_order_number', title: '订单编号', sort: true},
+                {field: 'type', width: 80, title: '问题类型'},
+                {field: 'describe', title: '问题描述'},
+                {field: 'username', title: '登录账号'},
+                {field: 'password', title: '登录密码', templet:password},
+                {field: 'sign', title: '控制', templet:password_on},
+                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+            ]],
+            limits: [10, 15, 20, 25, 50, 100],
+            limit: 10,
+            page: true,
+            skin: 'line'
+        });
+        
+        function password(d){
+            return '<input onclick="" type="password" name="password" id="password' + d.id + '" required lay-verify="required||password" placeholder="请输入密码" autocomplete="off" class="layui-input" value="'+d.password+'" >'
+        }
+        
+        function password_on(d){
+            return '<b onclick="password_on(' + d.id + ')" id="password_on' + d.id + '">显示</b>&nbsp;'
+        }
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            var result = JSON.stringify(data.field);
+            // layer.alert(result, {
+            //     title: '最终的搜索信息'
+            // });
+
+            //执行搜索重载
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1
+                }
+                , where: {
+                    searchParams: result
+                }
+            }, 'data');
+
+            return false;
+        });
+
+        /**
+         * toolbar监听事件
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            if (obj.event === 'add') {  // 监听添加操作
+                var index = layer.open({
+                    title: '添加用户',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '../page/table/add.html',
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            } else if (obj.event === 'delete') {  // 监听删除操作
+            
+                var checkStatus = table.checkStatus('currentTableId')
+                    , data = checkStatus.data;
+                
+                var _data = JSON.stringify(data);
+                
+                if(_data.length < 3){
+                    layer.msg('请先勾选结束的工单',{icon:2});
+                    return;
+                }    
+                
+                //layer.alert(JSON.stringify(data)+_data.length);
+                layer.msg('结束中...',{icon:2});
+                $.get('/batch_work_order_state',{'data':_data},function(res){
+                    if(res.code>0){
+                        layer.msg(res.msg,{icon:3});
+                    }else{
+                      layer.msg(res.msg,{icon:1}); 
+                     setTimeout(function(){location.reload()}, 1000);
+                    }
+                },'json');
+            }
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(currentTableFilter)', function (obj) {
+            console.log(obj)
+        });
+
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+                //console.log(data);
+                var index = layer.open({
+                    title: '处理工单' + ' #' + data.work_order_number,
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/wkop/id/' + data.id + '#footerMsg',
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            } else if (obj.event === 'delete') {
+                layer.confirm('真的要结束工单吗？', function (index) {
+                    obj.del();
+                    layer.close(index);
+                    //console.log(obj.data.id)
+                    $.get('/work_order_state',{'id':obj.data.id},function(res){
+                        if(res.code>0){
+                            layer.msg(res.msg,{icon:3});
+                        }else{
+                            layer.msg(res.msg,{icon:1}); 
+                        }
+                    },'JSON');
+                });
+            }
+        });
+
+    });
+</script>
+<script>
+    function password_on(id){
+        var res = $('#password_on'+id).text();
+        if(res=='显示'){
+          $('#password_on'+id).text('隐藏'); 
+          $("#password"+id).attr("type", "text");
+        }else{
+          $('#password_on'+id).text('显示');
+          $("#password"+id).attr("type", "password");
+        }
+    }
+</script>
+
+</body>
+</html>

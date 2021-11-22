@@ -1,0 +1,210 @@
+    <link rel="stylesheet" href="__STATIC__/admin/lib/layui-v2.6.3/css/layui.css" media="all">
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <ul class="layui-tab-title">
+        <li class="layui-this">域名管理</li>
+        <li onclick="web_path({$id})">运行目录</li>
+        <li onclick="web_rewrite({$id},'{$webname}')">伪静态</li>
+        <li>PHP版本</li>
+        <li>网站日志
+        </li>
+    </ul>  
+    <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+             <div class="layui-form-item">
+                <label class="layui-form-label">域名</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="domain" required lay-verify="required" placeholder="默认端口为80" autocomplete="off" class="layui-input">
+                </div>
+                <button class="layui-btn layui-btn-normal" onclick="add_yuming({$id},'{$webname}')">添加</button>
+                <div style="margin:30px 0 0 20px;" id="yuming"></div>
+              </div>
+            </div>
+            <div class="layui-tab-item" style="margin:0 0 0 30px;"><div id="web_path"></div>
+                <button class="layui-btn layui-btn-normal" onclick="add_path({$id})">保存</button>
+            </div>
+            <div class="layui-tab-item" style="margin:0 0 0 30px;">
+                <div id="web_rewrite"></div>
+                <br><br>
+                <div class="layui-btn-normal"><textarea id="rewrite_desc" placeholder="" class="layui-textarea"></textarea></div>
+                <br><button class="layui-btn layui-btn-normal" onclick="add_rewrite({$id},'{$webname}')">保存</button>
+            </div>
+            <div class="layui-tab-item">开发中</div>
+            <div class="layui-tab-item">开发中</div>
+     </div>
+    </div>
+    {include file="public/jquery"}
+    <script>
+        function load(){
+            var id = {$id};
+            var webname = '{$webname}';
+            $.get('/yuming_list',{'id':id},function(res){
+                //console.log(webname);
+                if(res.code>0){
+                    layer.msg(res.msg,{icon:2});
+                }else{
+                    console.log(res);
+                    var yuming = res;
+                    var text = "";
+            		var i;
+                    for(i = 0; i < yuming.length; i++) {
+                        text += "<div id='yuming" + yuming[i].id + "'>"
+            			text += "<span>" + yuming[i].name + "</span>";
+    				    text += "<span style='padding:0 0 0 20px;' onclick='delete_yuming(" + yuming[i].id +","+ id + ",&apos;" + yuming[i].name + "&apos;,&apos;" + webname + "&apos;)'>删除</span>" + "</br>";
+            			text += "</div>"
+            		}
+            		document.getElementById("yuming").innerHTML = text;
+            
+                }
+            });
+        }
+        load();
+         function delete_yuming(bt_id, id, name, webname) {
+            layer.confirm("确定删除此域名吗?", {
+                icon: 3,
+                title: "提示"
+            },
+            function(index) {
+                layer.close(index);
+                $.get("/delete_yuming", {
+                    "id": id,
+                    "name": name,
+                    "webname": webname
+                },
+                function(res) {
+                    if (res.code > 0) {
+                        layer.msg(res.msg, {
+                            icon: 2
+                        })
+                    } else {
+                        layer.msg(res.msg, {
+                            icon: 1
+                        });
+                        $("#yuming" + bt_id).attr("style", "display:none;");
+                    }
+                },
+                "json");
+            });
+        }
+        function add_yuming(id, webname) {
+            var domain = $("#domain").val();
+            if (!domain) {
+                layer.msg("请填写您要添加的域名", {
+                    icon: 2
+                })
+            }
+            $.get("/add_yuming", {
+                "id": id,
+                "webname": webname,
+                "domain": domain
+            },
+            function(res) {
+                if (res.code > 0) {
+                    layer.msg(res.msg, {
+                        icon: 2
+                    })
+                } else {
+                    layer.msg(res.msg, {
+                        icon: 1
+                    });
+                    location.reload()
+                }
+            },
+            "json")
+        };
+        function web_path(id) {
+            $.get("/run_directory", {
+                "id": id
+            },
+            function(res) {
+                var dirs = res.dirs;
+                var text = "";
+                text += "<div class=layui-form-item><div class=layui-input-inline><select id=run_path>";
+                text += "<option value=" + res.runPath + ">" + res.runPath + "</option>";
+                for (i = 0; i < dirs.length; i++) {
+                    text += "<option value=" + res.dirs[i] + ">" + res.dirs[i] + "</option>"
+                }
+                text += "</select></div></div>";
+                document.getElementById("web_path").innerHTML = text
+            })
+        }
+        function add_path(id) {
+            var path = $("#run_path").val();
+            var load = layer.load(1);
+            $.get("/add_run_directory", {
+                "id": id,
+                "path": path
+            },
+            function(res) {
+                if (res.code > 0) {
+                    layer.msg(res.msg, {
+                        icon: 2
+                    })
+                    layer.close(load); 
+                } else {
+                    layer.msg(res.msg, {
+                        icon: 1
+                    })
+                    layer.close(load); 
+                }
+            },
+            "json")
+        };
+        function web_rewrite(id, webname) {
+            $.get("/rewrite_config", {
+                "id": id,
+                "webname": webname
+            },
+            function(res) {
+                $("#rewrite_desc").text(res.data)
+            });
+            $.get("/web_rewrite", {
+                "id": id,
+                "webname": webname
+            },
+            function(res) {
+                var text = "";
+                text += "<select id=rewrite_id>";
+                for (i = 0; i < res.rewrite.length; i++) {
+                    text += "<option value=" + res.rewrite[i] + ">" + res.rewrite[i] + "</option>"
+                }
+                text += "</select>";
+                document.getElementById("web_rewrite").innerHTML = text
+            })
+        }
+        $(document).on("change", "#rewrite_id",
+        function() {
+            var rewrite_id = $("#rewrite_id").val();
+            $.get("/rewrites_config", {
+                "rewrite_id": rewrite_id
+            },
+            function(res) {
+                $("#rewrite_desc").text(res.data)
+            })
+        });
+        function add_rewrite(c, a) {
+            var b = $("#rewrite_desc").text();
+            if (!b) {
+                leyer.msg("请线填写伪静态")
+            }
+            var load = layer.load(1);
+            $.get("/add_rewrite", {
+                "id": c,
+                "rewrite_desc": b,
+                "webname": a
+            },
+            function(d) {
+                if (d.code > 0) {
+                    layer.msg(d.msg, {
+                        icon: 2
+                    })
+                    layer.close(load)
+                } else {
+                    layer.msg(d.msg, {
+                        icon: 1
+                    })
+                    layer.close(load)
+                }
+            },
+            "json")
+            };
+    </script>

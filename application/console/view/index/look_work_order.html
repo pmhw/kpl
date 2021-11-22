@@ -1,0 +1,75 @@
+<!--查看工单界面-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>查看工单</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="__STATIC__/admin/images/favicon.ico">
+    <link rel="stylesheet" href="__STATIC__/admin/lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="__STATIC__/admin/css/public.css" media="all">
+    <link rel="stylesheet" href="__STATIC__/admin/js/lay-module/step-lay/step.css" media="all">
+    {include file="public/jquery"}
+
+</head>
+<body>
+    <div class="layui-row layui-col-space15">
+    
+      {volist name="data.work_order" id="vo"}
+      <div class="layui-col-md3" onclick="jump_work_order_page({$vo.id},{$vo.state},{$vo.work_order_number})">
+        <div class="layui-panel">
+          <div style="padding: 30px;">
+              <a>{$vo.type}</a> 
+              <span class="layui-badge {switch name="vo.state"}
+                    {case value="1"}{/case}
+                    {case value="2"}layui-bg-blue{/case}
+                    {case value="3"}layui-bg-black{/case}
+                 {/switch}">
+                  {switch name="vo.state"}
+                    {case value="1"}待处理{/case}
+                    {case value="2"}已回复{/case}
+                    {case value="3"}已解决{/case}
+                 {/switch}
+              </span>
+              <br><br><b style="font-size:32px;">工单编号 </b> <br> <b> # {$vo.work_order_number}</b><i class="fa fa-list-alt"></i>
+              <br><br><b>创建时间 {:date('Y-m-d H:i:s',$vo.time)}</b>
+          </div>
+        </div>   
+      </div>
+      {/volist}
+    </div>  
+    <div class="layui-row layui-col-space15">
+    <br>
+    {$data.page}
+    </div> 
+</body>
+
+<script src="__STATIC__/admin/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+    function jump_work_order_page(id,state,kid){
+        //console.log(1);
+        if(state==3){
+            layer.msg('该工单已解决');
+            return;
+        }
+        
+        //通过这种方式弹出的层，每当它被选择，就会置顶。
+        layer.open({
+          title:'工单 #' + kid,
+          type: 2,
+          shade: false,
+          area: ['100%', '100%'],
+          maxmin: true,
+          content: '/work_order_page/id/' + id +'/#footerMsg',
+          zIndex: layer.zIndex, //重点1
+          success: function(layero){
+            layer.setTop(layero); //重点2
+          }
+        });  
+        
+    }
+</script>
+
+</html>

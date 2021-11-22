@@ -1,0 +1,67 @@
+{include file="public/head_menu" /}
+<body>
+<style>
+    .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+</style>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <div class="layui-form layuimini-form">
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label required">首页标题</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" placeholder="请输入网站标题" lay-verify="required" lay-reqtext="网站标题不能为空"  value="{$frontend.title | default=''}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">META关键词</label>
+                <div class="layui-input-block">
+                    <textarea name="keywords" class="layui-textarea" placeholder="多个关键词用英文状态 , 号分割">{$frontend.keywords | default=''}</textarea>
+                    <tip>用于告诉搜索引擎，你网页的关键字。</tip>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">META描述</label>
+                <div class="layui-input-block">
+                    <textarea name="descript" class="layui-textarea">{$frontend.descript | default=''}</textarea>
+                    <tip>用于告诉搜索引擎，你网站的主要内容。</tip>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label required">版权信息</label>
+                <div class="layui-input-block">
+                    <textarea name="copyright" lay-verify="required" lay-reqtext="版权信息不能为空"  class="layui-textarea">{$frontend.copyright | default=''}</textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="setting">确认保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/admin/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+
+<script>
+    layui.use(['form','layer'], function () {
+        var form = layui.form
+            , layer = layui.layer;
+
+ 
+        form.on('submit(setting)', function (data) {
+            console.log(data.field);
+            $.post('/add_frontend',data.field,function(res){
+                if(res.code>0){
+                    layer.msg("失败",{icon:2});
+                }else{
+                    layer.msg("成功",{icon:1});
+                }
+            });
+        });
+
+    });
+</script>
+</body>
+</html>

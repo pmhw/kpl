@@ -1,0 +1,91 @@
+{include file="public/head_menu" / }
+<script src="__STATIC__/admin/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<body>
+    <h3>当前正在使用主题: {$theme}</h3>
+    <table id="currentTableId"></table>
+	<script>
+	layui.config({
+      base: '__STATIC__/admin/extend/' //配置 layui 第三方扩展组件存放的基础目录
+    }).extend({
+      cardTable: 'cardTable/cardTable' 
+    }).use(['table','layer', 'form', 'jquery', 'cardTable'], function () {
+			let table = layui.table;
+			let form = layui.form;
+			let $ = layui.jquery;
+            let layer = layui.layer;
+            let cardTable = layui.cardTable;
+
+            cardTable.render({
+                elem: '#currentTableId',
+				//此为动态
+				url: '/theme_josn', 
+				//此为静态
+				// data:[{
+				// 		"id": "1",
+				// 		"image": "https://gw.alipayobjects.com/zos/rmsportal/gLaIAoVWTtLbBWZNYEMg.png",
+				// 		"title": "Alipay",
+				// 		"remark": "那是一种内在的东西， 他们到达不了，也无法触及的",
+				// 		"time": "几秒前"
+				// 	},{
+				// 		"id": "2",
+				// 		"image": "https://gw.alipayobjects.com/zos/rmsportal/iXjVmWVHbCJAyqvDxdtx.png",
+				// 		"title": "Layui",
+				// 		"remark": "生命就像一盒巧克力，结果往往出人意料",
+				// 		"time": "几秒前"
+				// 	},{
+				// 		"id": "3",
+				// 		"image": "https://gw.alipayobjects.com/zos/rmsportal/iZBVOIhGJiAnhplqjvZW.png",
+				// 		"title": "Angular",
+				// 		"remark": "希望是一个好东西，也许是最好的，好东西是不会消亡的",
+				// 		"time": "几秒前"
+				// 	},
+				// 	{
+				// 		"id": "4",
+				// 		"image": "https://gw.alipayobjects.com/zos/rmsportal/uMfMFlvUuceEyPpotzlq.png",
+				// 		"title": "React",
+				// 		"remark": "那是一种内在的东西， 他们到达不了，也无法触及的",
+				// 		"time": "几秒前"
+				// 	},{
+				// 		"id": "5",
+				// 		"image": "https://gw.alipayobjects.com/zos/rmsportal/gLaIAoVWTtLbBWZNYEMg.png",
+				// 		"title": "Alipay",
+				// 		"remark": "那是一种内在的东西， 他们到达不了，也无法触及的",
+				// 		"time": "几秒前"
+				// 	},{
+				// 		"id": "6",
+				// 		"image": "https://gw.alipayobjects.com/zos/rmsportal/iXjVmWVHbCJAyqvDxdtx.png",
+				// 		"title": "Layui",
+				// 		"remark": "生命就像一盒巧克力，结果往往出人意料",
+				// 		"time": "几秒前"
+				// 	},{
+				// 		"id": "7",
+				// 		"image": "https://gw.alipayobjects.com/zos/rmsportal/iZBVOIhGJiAnhplqjvZW.png",
+				// 		"title": "Angular",
+				// 		"remark": "希望是一个好东西，也许是最好的，好东西是不会消亡的",
+				// 		"time": "几秒前"
+				// 	},
+				// 	{
+				// 		"id": "8",
+				// 		"image": "https://gw.alipayobjects.com/zos/rmsportal/uMfMFlvUuceEyPpotzlq.png",
+				// 		"title": "React",
+				// 		"remark": "那是一种内在的东西， 他们到达不了，也无法触及的",
+				// 		"time": "几秒前"
+				// 	}]
+			})
+			
+		 form.on('#currentTableId', function (res) {
+		        console.log(res);
+                var data = cardTable.getChecked("currentTableId");
+                layer.msg(JSON.stringify(data));
+                return false;
+            });
+            
+        $('#{$theme}').attr('style','outline-style: solid; outline-color: #1E90FF;outline-width: 6px;');
+        
+
+		})
+		
+		
+	</script>
+</body>
+</html>

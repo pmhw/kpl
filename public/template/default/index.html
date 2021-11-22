@@ -1,0 +1,516 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{$frontend.title | default="开普勒_用代码改变世界"}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="{$frontend.keywords | default=''}">
+        <meta name="description" content="{$frontend.descript | default=''}">
+
+		<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
+
+        <link rel="stylesheet" href="{$template}/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{$template}/css/animate.min.css">
+        <link rel="stylesheet" href="{$template}/css/magnific-popup.css">
+        <link rel="stylesheet" href="{$template}/css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="{$template}/css/nice-select.css">
+        <link rel="stylesheet" href="{$template}/css/flaticon.css">
+        <link rel="stylesheet" href="{$template}/css/odometer.css">
+        <link rel="stylesheet" href="{$template}/css/slick.css">
+        <link rel="stylesheet" href="{$template}/css/default.css">
+        <link rel="stylesheet" href="{$template}/css/style.css">
+        <link rel="stylesheet" href="{$template}/css/responsive.css">
+    </head>
+    <body>
+
+     
+        <div id="preloader">
+            <div class="preloader-wrapper">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+        <button class="scroll-top scroll-to-target" data-target="html">
+            <i class="fas fa-angle-up"></i>
+        </button>
+
+        <header>
+            <div class="header-top-wrap">
+                <div class="container custom-container">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 d-none d-md-block">
+                            <div class="header-top-offer">
+                                <p>促销活动倒计时</p>
+                                <span class="coming-time" data-countdown="2021/8/17"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="header-top-right-list">
+                                <ul>
+                                    <li><i class="fas fa-headphones"></i><a href="">24小时在线客服qq：32579135</a></li>
+                                    <li><i class="far fa-envelope"></i><a href="#">紧急联系</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="sticky-header" class="main-header menu-area">
+                <div class="container custom-container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mobile-nav-toggler"><i class="fas fa-bars"></i></div>
+                            <div class="menu-wrap">
+                                <nav class="menu-nav show">
+                                    <div class="logo">
+                                        <a href="index.html"><img src="/img/logo.png" width="80px" alt=""></a>
+                                    </div>
+                                    <div class="navbar-wrap main-menu d-none d-lg-flex">
+                                        <ul class="navigation">
+                                            <li class="active dropdown"><a href="#">首页</a></li>
+                                            {volist name="menu1" id="vo" key="k"}
+                                            <li>
+                                                <a href="{$vo.url}">{$vo.name}</a>
+                                                {empty name="$vo.url"}
+                                                <ul class="submenu">
+                                                    {volist name="menu2" id="vs" key="k"}
+                                                    {if condition="$vo.gid == $vs.gid"}
+                                                    <li class="active"><a href="{$vs.url}">{$vs.name}</a></li>
+                                                    {/if}
+                                                    {/volist}
+                                                </ul>
+                                                {/empty}
+                                            </li>
+                                            {/volist}
+                                            <li class=""><a href="#xnzj">虚拟主机</a></li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="header-action d-none d-md-block">
+                                        <ul>
+                                            <li class="header-search"><a href="#" data-toggle="modal" data-target="#search-modal"><i class="fas fa-search"></i></a></li>
+                                            <li class="header-btn"><a href="{$session==0?'/console':'/login'}" class="btn"><i class="{$session==0?'fa fa-th-large':'fas fa-unlock-alt'}"></i> {$session==0?'控制台':'登录'}</a></li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                            
+                            <div class="mobile-menu">
+                                <div class="menu-backdrop"></div>
+                                <div class="close-btn"><i class="fas fa-times"></i></div>
+
+                                <nav class="menu-box">
+                                    <div class="nav-logo"><a href="index.html"><img src="{$template}/img/logo/w_logo.png" alt="" title=""></a>
+                                    </div>
+                                    <div class="menu-outer">
+                                        
+                                    </div>
+                                    <div class="social-links">
+                                        <ul class="clearfix">
+                                            <li><a href="#"><span class="fab fa-twitter"></span></a></li>
+                                            <li><a href="#"><span class="fab fa-facebook-square"></span></a></li>
+                                            <li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
+                                            <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+                                            <li><a href="#"><span class="fab fa-youtube"></span></a></li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                          
+                            <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form>
+                                            <input type="text" placeholder="请输入搜索内容...">
+                                            <button><i class="fa fa-search"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+
+
+        
+        <main>
+
+            
+            <section class="banner-area banner-bg fix" data-background="{$template}/img/banner/banner_bg01.jpg">
+                <div class="container custom-container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 order-0 order-lg-2">
+                            <div class="banner-img wow fadeInRight" data-wow-delay="1s">
+                                <img src="{$template}/img/banner/banner_img.png" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="banner-content">
+                                <span class="wow fadeInUp" data-wow-delay=".3s">虚拟主机具备高在线率、高安全性、高稳定性等多项优势</span>
+                                <h2 class="wow fadeInUp" data-wow-delay=".6s">开普勒</h2>
+                                <p class="wow fadeInUp" data-wow-delay=".9s">一个IDC企业能承载的用户体量是判断企业综合技术实力的重要依据</p>
+                                <a href="/login" class="btn wow fadeInUp" data-wow-delay="1s"><span>+</span> 立即注册</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="services-area position-relative pt-100 pb-25">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 col-lg-8">
+                            <div class="section-title text-center mb-100">
+                                <span class="sub-title">最正确的选择</span>
+                                <h2 class="title">全面、专业、智能的解决方案</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row services-item-wrap justify-content-center">
+                        <div class="col-lg-4 col-md-6 col-sm-7">
+                            <div class="services-item mb-70">
+                                <div class="services-icon">
+                                    <i class="flaticon-hosting"></i>
+                                </div>
+                                <div class="services-content">
+                                    <h4><a href="#">专属服务支持</a></h4>
+                                    <p>上百名技术专家为企业量身打造适合业务发展的专业服务。</p>
+                                    <a href="/login" class="read-more">加入</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-7">
+                            <div class="services-item mb-70">
+                                <div class="services-icon">
+                                    <i class="flaticon-megaphone"></i>
+                                </div>
+                                <div class="services-content">
+                                    <h4><a href="#">实时通知</a></h4>
+                                    <p>第一时间获取您的服务器的状态，全托管SSD共享是快速的最佳解决方案。</p>
+                                    <a href="/login" class="read-more">加入</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-7">
+                            <div class="services-item mb-70">
+                                <div class="services-icon">
+                                    <i class="flaticon-edit"></i>
+                                </div>
+                                <div class="services-content">
+                                    <h4><a href="#">工单处理</a></h4>
+                                    <p>建议反馈24小时在线，反馈后第一时间处理您的问题。</p>
+                                    <a href="{$Think.config.add_work_order}" class="read-more">创建</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-line-shape one"></div>
+                        <div class="service-line-shape two"></div>
+                        <div class="service-line-shape three"></div>
+                        <div class="service-line-shape four"></div>
+                    </div>
+                </div>
+                <div class="service-shape one"><img src="{$template}/img/images/services_shape01.png" alt=""></div>
+                <div class="service-shape two"><img src="{$template}/img/images/services_shape02.png" alt=""></div>
+            </section>
+        
+            <!--<section class="domain-search-area domain-search-bg" data-background="{$template}/img/bg/domain_search.jpg">-->
+            <!--    <div class="container">-->
+            <!--        <div class="row justify-content-center">-->
+            <!--            <div class="col-xl-10 col-lg-11">-->
+            <!--                <div class="section-title white-title text-center mb-35">-->
+            <!--                    <span class="sub-title"><img src="{$template}/img/images/sub_title_dot.png" alt="">选择域名</span>-->
+            <!--                    <h2 class="title">找到你喜欢的网站域名</h2>-->
+            <!--                </div>-->
+            <!--                <form action="#" class="domain-search-form">-->
+            <!--                    <div class="form-grp">-->
+            <!--                        <i class="flaticon-world-wide-web"></i>-->
+            <!--                        <input type="text" placeholder="搜索您的域">-->
+            <!--                    </div>-->
+            <!--                    <select name="name" class="selected">-->
+            <!--                        <option value="">. studio</option>-->
+            <!--                        <option value="">. com</option>-->
+            <!--                        <option value="">. me</option>-->
+            <!--                        <option value="">. net</option>-->
+            <!--                        <option value="">. info</option>-->
+            <!--                        <option value="">. biz</option>-->
+            <!--                    </select>-->
+            <!--                    <button class="btn orange-solid-btn">搜索...</button>-->
+            <!--                </form>-->
+            <!--                <div class="domain-list">-->
+            <!--                    <ul>-->
+            <!--                        <li>.com<span>$6.39</span></li>-->
+            <!--                        <li>.me<span>$3.49</span></li>-->
+            <!--                        <li>.net<span>$8.39</span></li>-->
+            <!--                        <li>.info<span>$6.39</span></li>-->
+            <!--                        <li>.studio<span>$6.39</span></li>-->
+            <!--                    </ul>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--    </div>-->
+            <!--</section>-->
+
+            <section class="package-pricing-area package-pricing-bg" data-background="{$template}/img/bg/pack_pricing_bg.jpg" id="xnzj">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 col-lg-8">
+                            <div class="section-title text-center mb-70">
+                                <span class="sub-title">我们的定价计划</span>
+                                <h2 class="title">虚拟主机</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="package-pricing-box">
+                                <table class="table table-hover table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="pack-pricing-tab">
+                                                <div class="pack-pricing-head">
+                                                    <div class="icon"><i class="flaticon-sparkler"></i></div>
+                                                    <div class="pak-price-box-title">制定灵活的定价计划</div>
+                                                    <div class="pricing-tab">
+                                                        <span class="tab-btn monthly_tab_title">月付</span>
+                                                        <span class="pricing-tab-switcher"></span>
+                                                        <span class="tab-btn annual_tab_title">年付</span>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            {volist name="goods" id="goods"}
+                                            <th scope="col" class="pack-price-info pricing-amount">
+                                                <span class="pack-sub-title">{$goods.title}</span>
+                                                <span class="pack-price-offer">限时提供</span>
+                                                <div class="price annual_price">￥{$goods.Npricing}<span>/年</span></div>
+                                                <div class="price monthly_price">￥{$goods.Ypricing}<span>/月</span></div>
+                                                <a href="/shop_confirm?id={$goods.id}" class="btn pack-price-btn"><span>+</span>现在购买</a>
+                                            </th>
+                                            {/volist}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="col">网站</th>
+                                            <td>1 个</td>
+                                            <td>1 个</td>
+                                            <td>1 个</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">IP地址</th>
+                                            <td>1 个</td>
+                                            <td>1 个</td>
+                                            <td>1 个</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">带宽</th>
+                                            {volist name="bw" id="bw"}
+                                            <td>{$bw.bandwidth}MB</td>
+                                            {/volist}
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">数据库大小</th>
+                                            {volist name="mq" id="mq"}
+                                            <td>{$mq.mysql}MB</td>
+                                            {/volist}
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">网站空间</th>
+                                            {volist name="web" id="web"}
+                                            <td>{$web.web_size}G</td>
+                                            {/volist}
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">IP</th>
+                                            {volist name="ips" id="ips"}
+                                            <td>{$ips.ip}</td>
+                                            {/volist}
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">保证</th>
+                                            <td>99.9% 正常运行时间</td>
+                                            <td>99.9% 正常运行时间</td>
+                                            <td>99.9% 正常运行时间</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">管理</th>
+                                            <td>DNS</td>
+                                            <td>DNS</td>
+                                            <td>DNS</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">备份</th>
+                                            <td>Daily</td>
+                                            <td>Daily</td>
+                                            <td>Daily</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="faq-area pt-100 pb-100">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="faq-img wow fadeInLeft" data-wow-delay=".3s">
+                                <img src="{$template}/img/images/faq_img.png" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="section-title text-left mb-40">
+                                <span class="sub-title">faq help</span>
+                                <h2 class="title">常见问题</h2>
+                                <br>Frequently Asked Questions
+                            </div>
+                            <div class="faq-wrap">
+                                <div class="faq-set">
+                                    <a class="active" href="#">我如何开始网络托管? <i class="fas fa-angle-down"></i></a>
+                                    <div class="content" style="display: block;">
+                                        <p>注册登录，选择您的配置立刻创建您的服务器</p>
+                                    </div>
+                                </div>
+                                <div class="faq-set">
+                                    <a href="#">能满足您需求的托管服务？<i class="fas fa-angle-up"></i></a>
+                                    <div class="content">
+                                        <p>满足您需求的托管服务。你是否经营一个专业的、商业的、个人的WordPress网站?获得最好的交易可靠性和安全性。从Shared, WordPress, VPS hosting为您选择最佳的域名托管计划</p>
+                                    </div>
+                                </div>
+                                <div class="faq-set">
+                                    <a href="#">虚拟主机是否支持SSL证书和能实现https访问吗？<i class="fas fa-angle-up"></i></a>
+                                    <div class="content">
+                                        <p>目前虚拟主机是支持SSL证书和能实现https访问的，需要联系客服开通即可</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+
+
+
+        <footer class="black-bg pb-35">
+            <div class="footer-top-wrap pt-85 pb-35">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-4">
+                            <div class="footer-widget mb-50">
+                                <div class="fw-title mb-25">
+                                    <h4 class="title">我们的网络</h4>
+                                </div>
+                                <div class="fw-link">
+                                    <ul>
+                                        <li><a href="#">关于我们</a></li>
+                                        <li><a href="#">职业的客户</a></li>
+                                        <li><a href="#">社区</a></li>
+                                        <li><a href="#">我们的团队</a></li>
+                                        <li><a href="#">支持</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-4">
+                            <div class="footer-widget mb-50">
+                                <div class="fw-title mb-25">
+                                    <h4 class="title">快速链接</h4>
+                                </div>
+                                <div class="fw-link">
+                                    <ul>
+                                        <li><a href="{$Think.config.myhost}">虚拟主机</a></li>
+                                        <li><a href="#">VPS服务器</a></li>
+                                        <li><a href="#">专用的服务器</a></li>
+                                        <li><a href="#">WHMCS桥</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-4">
+                            <div class="footer-widget mb-50">
+                                <div class="fw-title mb-25">
+                                    <h4 class="title">资源</h4>
+                                </div>
+                                <div class="fw-link">
+                                    <ul>
+                                        <li><a href="#">帮助</a></li>
+                                        <li><a href="#">事件</a></li>
+                                        <li><a href="#">现场会议</a></li>
+                                        <li><a href="#">开源</a></li>
+                                        <li><a href="#">文档</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-4">
+                            <div class="footer-widget mb-50">
+                                <div class="fw-title mb-25">
+                                    <h4 class="title">支持</h4>
+                                </div>
+                                <div class="fw-link">
+                                    <ul>
+                                        <li><a href="#">常见问题解答</a></li>
+                                        <li><a href="#">销售</a></li>
+                                        <li><a href="#">联络支持</a></li>
+                                        <li><a href="#">网络状态</a></li>
+                                        <li><a href="#">产品服务</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-overlay-icon"><img src="/img/logo.png" alt=""></div>
+            </div>
+            <div class="copyright-wrap">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-6 col-lg-5">
+                            <div class="copyright-left-wrap">
+                                <div class="logo">
+                                    <a href=""><img src="{$template}/img/logo/logo.png" width="80px" alt=""></a>
+                                </div>
+                                <div class="copyright-social">
+                                    <ul>
+                                        <li><a href="#"><i class="fab fa-qq"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-weixin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-7">
+                            <div class="copyright-text">
+                                <p>{$frontend.copyright | default="开发作者：红牛 qq32579135"}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script src="{$template}/js/vendor/jquery-3.5.0.min.js"></script>
+        <script src="{$template}/js/popper.min.js"></script>
+        <script src="{$template}/js/bootstrap.min.js"></script>
+        <script src="{$template}/js/isotope.pkgd.min.js"></script>
+        <script src="{$template}/js/imagesloaded.pkgd.min.js"></script>
+        <script src="{$template}/js/jquery.magnific-popup.min.js"></script>
+        <script src="{$template}/js/jquery.nice-select.min.js"></script>
+        <script src="{$template}/js/jquery.odometer.min.js"></script>
+        <script src="{$template}/js/jquery.countdown.min.js"></script>
+        <script src="{$template}/js/jquery.appear.js"></script>
+        <script src="{$template}/js/slick.min.js"></script>
+        <script src="{$template}/js/ajax-form.js"></script>
+        <script src="{$template}/js/wow.min.js"></script>
+        <script src="{$template}/js/plugins.js"></script>
+        <script src="{$template}/js/main.js"></script>
+    </body>
+</html>

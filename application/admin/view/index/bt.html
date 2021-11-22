@@ -1,0 +1,82 @@
+{include file="public/head_menu" /}
+<body>
+<style>
+    .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+</style>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <div class="layui-form layuimini-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">面板地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="bt_url" lay-verify="required" lay-reqtext="面板地址不能为空" placeholder="请输入面板地址带端口，例如：http://192.168.1.245:8888"  value="{$bt.bt_url | default=''}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">接口密钥</label>
+                <div class="layui-input-block">
+                    <input type="password" name="bt_key" lay-verify="required" lay-reqtext="接口密钥不能为空" placeholder="请输接口密钥"   value="{$bt.bt_key | default=''}" class="layui-input">
+                </div>
+            </div>
+            
+             <div class="layui-form-item">
+                <label class="layui-form-label" id="name">隐藏开关</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="close" lay-filter="switchTest" lay-skin="switch" lay-text="ON|OFF" checked>
+                </div>
+            </div>           
+            
+            <div class="layui-form-item layui-form-text" style="margin:0 0 20px 100px;"> 
+
+                <b>开启API后，必需在IP白名单列表中的IP才能访问面板API接口</b>
+                <br>
+                <b>如需本机调用面板API密钥，请添加" 127.0.0.1 "和本机IP至IP白名单</b>
+                <br>
+                <b>如调用面板API密钥错误 20 次会被限制调用，请在宝塔后台 【终端】SSH 执行代码 bt 16</b>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/admin/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script src="__STATIC__/admin/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script>
+    layui.use(['form','miniTab'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            miniTab = layui.miniTab;
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            //console.log(data.field);
+            $.post('/add_bt',data.field,function(res){
+                if(res.code>0){
+                    layer.msg('失败',{icon:2});
+                }else{
+                    layer.msg('成功',{icon:1});
+                }
+            });
+
+        });
+        
+        //监听指定开关
+        form.on('switch(switchTest)', function (data) {
+            console.log(this.checked)
+            if(this.checked){
+                $('input[name="bt_key"]').attr('type','password');
+            }else{
+                $('input[name="bt_key"]').attr('type','text');
+            }
+            
+        });
+
+    });
+</script>
+</body>
+</html>

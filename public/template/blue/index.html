@@ -1,0 +1,559 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{$frontend.title | default="开普勒_用代码改变世界"}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="{$frontend.keywords | default=''}">
+        <meta name="description" content="{$frontend.descript | default=''}">
+
+		<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
+
+        <link rel="stylesheet" href="{$template}/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{$template}/css/animate.min.css">
+        <link rel="stylesheet" href="{$template}/css/magnific-popup.css">
+        <link rel="stylesheet" href="{$template}/css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="{$template}/css/nice-select.css">
+        <link rel="stylesheet" href="{$template}/css/flaticon.css">
+        <link rel="stylesheet" href="{$template}/css/odometer.css">
+        <link rel="stylesheet" href="{$template}/css/slick.css">
+        <link rel="stylesheet" href="{$template}/css/default.css">
+        <link rel="stylesheet" href="{$template}/css/style.css">
+        <link rel="stylesheet" href="{$template}/css/responsive.css">
+    </head>
+    <body>
+
+
+        <div id="preloader">
+            <div class="preloader-wrapper">
+                <div class="spinner"></div>
+            </div>
+        </div>
+
+		<!-- Scroll-top -->
+        <button class="scroll-top scroll-to-target" data-target="html">
+            <i class="fas fa-angle-up"></i>
+        </button>
+        <!-- Scroll-top-end-->
+
+        <!-- header-area -->
+        <header class="header-style-two">
+            <div class="header-top-wrap">
+                <div class="container custom-container">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 d-none d-md-block">
+                            <div class="header-top-offer">
+                                <p>促销活动倒计时</p>
+                                <span class="coming-time" data-countdown="2021/1/1"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="header-top-right-list">
+                                <ul>
+                                    <li><i class="fas fa-headphones"></i><a href="">24小时在线客服qq：32579135</a></li>
+                                    <li><i class="far fa-envelope"></i><a href="#">紧急联系</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="sticky-header" class="main-header menu-area transparent-header">
+                <div class="container custom-container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mobile-nav-toggler"><i class="fas fa-bars"></i></div>
+                            <div class="menu-wrap">
+                                <nav class="menu-nav show">
+                                    <div class="logo">
+                                        <a href="index.html"><img src="/img/logo.png" width="80px" alt=""></a>
+                                    </div>
+                                    <div class="navbar-wrap main-menu d-none d-lg-flex">
+                                        <ul class="navigation">
+                                            <li class="active dropdown"><a href="#">首页</a></li>
+                                            {volist name="menu1" id="vo" key="k"}
+                                            <li class="dropdown">
+                                                <a href="{$vo.url}">{$vo.name}</a>
+                                                {empty name="$vo.url"}
+                                                <ul class="submenu">
+                                                    {volist name="menu2" id="vs" key="k"}
+                                                    {if condition="$vo.gid == $vs.gid"}
+                                                    <li><a href="{$vs.url}">{$vs.name}</a></li>
+                                                    {/if}
+                                                    {/volist}
+                                                </ul>
+                                                {/empty}
+                                            </li>
+                                            {/volist}
+                                        </ul>
+                                    </div>
+                                    <div class="header-action d-none d-md-block">
+                                        <ul>
+                                            <li class="header-search"><a href="#" data-toggle="modal" data-target="#search-modal"><i class="fas fa-search"></i></a></li>
+                                            <li class="header-btn"><a href="{$session==0?'/console':'/login'}" class="btn green-btn"><i class="{$session==0?'fa fa-th-large':'fas fa-unlock-alt'}"></i> {$session==0?'控制台':'登录'}</a></li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                            <!-- Mobile Menu  -->
+                            <div class="mobile-menu">
+                                <div class="menu-backdrop"></div>
+                                <div class="close-btn"><i class="fas fa-times"></i></div>
+
+                                <nav class="menu-box">
+                                    <div class="nav-logo"><a href="index.html"><img src="{$template}/img/logo/w_logo.png" alt="" title=""></a>
+                                    </div>
+                                    <div class="menu-outer">
+                                        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                                    </div>
+                                    <div class="social-links">
+                                        <ul class="clearfix">
+                                            <li><a href="#"><span class="fab fa-twitter"></span></a></li>
+                                            <li><a href="#"><span class="fab fa-facebook-square"></span></a></li>
+                                            <li><a href="#"><span class="fab fa-pinterest-p"></span></a></li>
+                                            <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+                                            <li><a href="#"><span class="fab fa-youtube"></span></a></li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                            <!-- End Mobile Menu -->
+                            <!-- Modal Search -->
+                            <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form>
+                                            <input type="text" placeholder="Search here...">
+                                            <button><i class="fa fa-search"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- header-area-end -->
+
+
+        <!-- main-area -->
+        <main>
+
+            <!-- banner-area -->
+            <section class="banner-area banner-style-two banner-bg" data-background="{$template}/img/banner/banner_bg02.jpg">
+                <div class="container custom-container">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-xl-5 col-lg-6 order-0 order-lg-2">
+                            <div class="banner-img wow fadeInRight" data-wow-delay="1s">
+                                <img src="{$template}/img/banner/banner_img02.png" alt="">
+                            </div>
+                        </div>
+                        <div class="col-xl-7 col-lg-6 col-md-10">
+                            <div class="banner-content">
+                                <span class="wow fadeInUp" data-wow-delay=".3s">虚拟主机具备高在线率、高安全性、高稳定性等多项优势</span>
+                                <h2 class="wow fadeInUp" data-wow-delay=".6s">开普勒</h2>
+                                <p class="wow fadeInUp" data-wow-delay=".9s">一个IDC企业能承载的用户体量是判断企业综合技术实力的重要依据</p>
+                                <a href="#" class="btn green-btn wow fadeInUp" data-wow-delay="1s"><span>+</span> 立即注册</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- banner-area-end -->
+
+            <!-- domain-search-area -->
+            <!--<div class="domain-search-area domain-search-two">-->
+            <!--    <div class="container">-->
+            <!--        <div class="row">-->
+            <!--            <div class="col-12">-->
+            <!--                <div class="domain-search-inner">-->
+            <!--                    <div class="domain-search-img">-->
+            <!--                        <img src="{$template}/img/images/domain_search_img.png" alt="">-->
+            <!--                    </div>-->
+            <!--                    <div class="domain-search-form-wrap">-->
+            <!--                        <form action="#" class="domain-search-form">-->
+            <!--                            <div class="form-grp">-->
+            <!--                                <input type="text" placeholder="Search Your Domain">-->
+            <!--                            </div>-->
+            <!--                            <select name="name" class="selected">-->
+            <!--                                <option value="">. studio</option>-->
+            <!--                                <option value="">. com</option>-->
+            <!--                                <option value="">. me</option>-->
+            <!--                                <option value="">. net</option>-->
+            <!--                                <option value="">. info</option>-->
+            <!--                                <option value="">. biz</option>-->
+            <!--                            </select>-->
+            <!--                            <button class="btn green-btn">Search...</button>-->
+            <!--                        </form>-->
+            <!--                        <div class="domain-list">-->
+            <!--                            <ul>-->
+            <!--                                <li>.com<span>$6.39</span></li>-->
+            <!--                                <li>.me<span>$3.49</span></li>-->
+            <!--                                <li>.net<span>$8.39</span></li>-->
+            <!--                                <li>.info<span>$6.39</span></li>-->
+            <!--                                <li>.studio<span>$6.39</span></li>-->
+            <!--                            </ul>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--    </div>-->
+            <!--</div>-->
+            <!-- domain-search-area-end -->
+
+            <!-- hosting-price-area -->
+            <section class="hosting-price-area pt-100 pb-100">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="section-title title-style-two text-center mb-60">
+                                <span class="sub-title">我们的定价计划</span>
+                                <h2 class="title">虚拟主机</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        {volist name="goods" id="goods"}
+                        <div class="col-lg-4 col-md-6 col-sm-8">
+                            <div class="hosting-pricing-item text-center mb-40">
+                                <div class="hosting-pricing-icon mb-25">
+                                    <img src="{$template}/img/icon/hosting_pricing_icon01.png" alt="">
+                                </div>
+                                <div class="hosting-pricing-title mb-15">
+                                    <h3>{$goods.title}</h3>
+                                </div>
+                                <div class="hosting-price-wrap pricing-amount">
+                                    <span>虚拟主机</span>
+                                    <h2 class="annual_price"><span class="dollar">￥</span>{$goods.Ypricing}<span class="duration">/月</span></h2>
+                                    <h2 class="monthly_price"><span class="dollar">￥</span>{$goods.Npricing}<span class="duration">/年</span></h2>
+                                </div>
+                                <div class="hosting-pricing-content">
+                                    <p>带宽：{$goods.bandwidth} <br>数据库：{$goods.mysql}MB <br>网站大小：{$goods.web_size}GB</p>
+                                </div>
+                                <div class="hosting-pricing-btn">
+                                    <a href="/shop_confirm?id={$goods.id} " class="btn green-btn">立即选购</a>
+                                </div>
+                            </div>
+                        </div>
+                        {/volist}
+                    <!--    <div class="col-lg-4 col-md-6 col-sm-8">-->
+                    <!--        <div class="hosting-pricing-item active text-center mb-40" data-background="{$template}/img/images/hosting_pricing_box_bg.jpg">-->
+                    <!--            <div class="hosting-pricing-icon mb-25">-->
+                    <!--                <img src="{$template}/img/icon/hosting_pricing_icon02.png" alt="">-->
+                    <!--            </div>-->
+                    <!--            <div class="hosting-pricing-title mb-15">-->
+                    <!--                <h3>VPS Hosting</h3>-->
+                    <!--            </div>-->
+                    <!--            <div class="hosting-price-wrap pricing-amount">-->
+                    <!--                <span>Start From</span>-->
+                    <!--                <h2 class="annual_price"><span class="dollar">$</span>19.99<span class="duration">p/mo</span></h2>-->
+                    <!--                <h2 class="monthly_price"><span class="dollar">$</span>29.99<span class="duration">p/mo</span></h2>-->
+                    <!--            </div>-->
+                    <!--            <div class="hosting-pricing-content">-->
+                    <!--                <p>Fully-Managed SSD Shared Hosting optimal solution for fast reliabunkwn printer galley of type scrambled.</p>-->
+                    <!--            </div>-->
+                    <!--            <div class="hosting-pricing-btn">-->
+                    <!--                <a href="#" class="btn green-btn">Sign Up Now</a>-->
+                    <!--            </div>-->
+                    <!--        </div>-->
+                    <!--    </div>-->
+                    <!--    <div class="col-lg-4 col-md-6 col-sm-8">-->
+                    <!--        <div class="hosting-pricing-item text-center mb-40">-->
+                    <!--            <div class="hosting-pricing-icon mb-25">-->
+                    <!--                <img src="{$template}/img/icon/hosting_pricing_icon03.png" alt="">-->
+                    <!--            </div>-->
+                    <!--            <div class="hosting-pricing-title mb-15">-->
+                    <!--                <h3>Cloud Hosting</h3>-->
+                    <!--            </div>-->
+                    <!--            <div class="hosting-price-wrap pricing-amount">-->
+                    <!--                <span>Start From</span>-->
+                    <!--                <h2 class="annual_price"><span class="dollar">$</span>3.99<span class="duration">p/mo</span></h2>-->
+                    <!--                <h2 class="monthly_price"><span class="dollar">$</span>5.99<span class="duration">p/mo</span></h2>-->
+                    <!--            </div>-->
+                    <!--            <div class="hosting-pricing-content">-->
+                    <!--                <p>Fully-Managed SSD Shared Hosting optimal solution for fast reliabunkwn printer galley of type scrambled.</p>-->
+                    <!--            </div>-->
+                    <!--            <div class="hosting-pricing-btn">-->
+                    <!--                <a href="#" class="btn green-btn">Sign Up Now</a>-->
+                    <!--            </div>-->
+                    <!--        </div>-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    <nav class="pricing-tab">
+                        <span class="tab-btn monthly_tab_title">月付</span>
+                        <span class="pricing-tab-switcher"></span>
+                        <span class="tab-btn annual_tab_title">年付</span>
+                    </nav>
+                </div>
+            </section>
+            <!-- hosting-price-area-end -->
+
+            <!-- server-and-platform -->
+            <section class="server-and-platform pb-95">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="server-platform-img text-center">
+                                <img src="{$template}/img/images/server_platform_img.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="server-platform-content">
+                                <div class="icon"><img src="{$template}/img/icon/server_platform_icon.png" alt=""></div>
+                                <h3>常见问题</h3>
+                                <ul>
+                                    <li>
+                                        <div class="icon"><img src="{$template}/img/icon/sp_list_icon01.png" alt=""></div>
+                                        <div class="content">
+                                            <h5>我如何开始网络托管?</h5>
+                                            <p>注册登录，选择您的配置立刻创建您的服务器。</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon"><img src="{$template}/img/icon/sp_list_icon02.png" alt=""></div>
+                                        <div class="content">
+                                            <h5>能满足您需求的托管服务？</h5>
+                                            <p>满足您需求的托管服务。你是否经营一个专业的、商业的、个人的WordPress网站?获得最好的交易可靠性和安全性。从Shared, WordPress, VPS hosting为您选择最佳的域名托管计划。</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon"><img src="{$template}/img/icon/sp_list_icon03.png" alt=""></div>
+                                        <div class="content">
+                                            <h5>虚拟主机是否支持SSL证书和能实现https访问吗</h5>
+                                            <p>目前虚拟主机是支持SSL证书和能实现https访问的，需要联系客服开通即可。</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- server-and-platform-end -->
+
+
+            <!-- data-center-area -->
+            <section class="data-center-area data-center-bg" data-background="{$template}/img/bg/data_center_bg.jpg">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-lg-7 order-0 order-lg-2">
+                            <div class="data-center-map">
+                                <img src="{$template}/img/images/data_center_map.png" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-7 col-sm-9">
+                            <div class="data-center-wrap">
+                                <div class="icon mb-15">
+                                    <img src="{$template}/img/icon/data_center_icon.png" alt="">
+                                </div>
+                                <h3 class="title">数据中心基础设施智能销售</h3>
+                                <div class="data-center-list-wrap">
+                                    <h5>当前活动</h5>
+                                    <div class="bar"><img src="{$template}/img/images/data_center_bar.png" alt=""></div>
+                                    <ul>
+                                        <li>
+                                            <div class="center-flag-info">
+                                                <img src="{$template}/img/images/data_center_flag01.png" alt="">
+                                                <span>英国</span>
+                                            </div>
+                                            <div class="user">
+                                                <span>5,46218</span>
+                                            </div>
+                                            <div class="average">
+                                                <span>55%</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="center-flag-info">
+                                                <img src="{$template}/img/images/data_center_flag02.png" alt="">
+                                                <span>法国</span>
+                                            </div>
+                                            <div class="user">
+                                                <span>7,46218</span>
+                                            </div>
+                                            <div class="average">
+                                                <span>70%</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="center-flag-info">
+                                                <img src="{$template}/img/images/data_center_flag03.png" alt="">
+                                                <span>德国</span>
+                                            </div>
+                                            <div class="user">
+                                                <span>5,46218</span>
+                                            </div>
+                                            <div class="average">
+                                                <span>55%</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- data-center-area-end -->
+
+            <!-- fact-area -->
+            <section class="fact-area fact-bg" data-background="{$template}/img/bg/fact_bg.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="fact-box mb-50">
+                                <div class="icon mb-20">
+                                    <img src="{$template}/img/icon/fact_icon01.png" alt="">
+                                </div>
+                                <h2><span class="odometer" data-count="356">00</span></h2>
+                                <span>数据中心</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="fact-box mb-50">
+                                <div class="icon mb-20">
+                                    <img src="{$template}/img/icon/fact_icon02.png" alt="">
+                                </div>
+                                <h2><span class="odometer" data-count="1958">00</span></h2>
+                                <span>数据设施</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="fact-box mb-50">
+                                <div class="icon mb-20">
+                                    <img src="{$template}/img/icon/fact_icon03.png" alt="">
+                                </div>
+                                <h2><span class="odometer" data-count="456">00</span><span>K</span></h2>
+                                <span>平台客户</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="fact-box mb-50">
+                                <div class="icon mb-20">
+                                    <img src="{$template}/img/icon/fact_icon04.png" alt="">
+                                </div>
+                                <h2><span class="odometer" data-count="99">00</span><span>+</span></h2>
+                                <span>用户反馈</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- fact-area-end -->
+
+        </main>
+        <!-- main-area-end -->
+
+
+        <!-- footer-area -->
+        <footer class="footer-style-two">
+            <div class="footer-top-wrap dark-bg pt-90 pb-40">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6">
+                            <div class="footer-widget mb-50">
+                                <div class="fw-logo mb-40">
+                                    <a href="index.html"><img src="/img/logo.png" alt="" width="120px"></a>
+                                </div>
+                                <div class="fw-address">
+                                    <ul>
+                                        <li class="phone">
+                                            <h3>12小时在线客服 9:00-21:00</h3>
+                                            <h5>QQ 填写自己的QQ</h5>
+                                        </li>
+                                        <li class="address">
+                                            <p>填写所在地</p>
+                                        </li>
+                                    </ul>
+                                    <a href="#" class="btn green-btn"><i class="fas fa-map-marker-alt"></i>查看导航</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-2 col-md-3 col-sm-6">
+                            <div class="footer-widget mb-50">
+                                <div class="fw-title fw-title-two mb-25">
+                                    <h4 class="title">功能</h4>
+                                </div>
+                                <div class="fw-link">
+                                    <ul>
+                                        <li><a href="#">关于我们</a></li>
+                                        <li><a href="#">我们的团队</a></li>
+                                        <li><a href="{$Think.config.myhost}">虚拟主机</a></li>
+                                        <li><a href="{$Think.config.add_work_order}">帮助&工单</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                            <div class="footer-widget mb-35">
+                                <div class="fw-title fw-title-two mb-25">
+                                    <h4 class="title">联系方式</h4>
+                                </div>
+                                <div class="fw-social">
+                                    <ul>
+                                        <li><a href="#" class="fb"><i class="fab fa-qq"></i></a></li>
+                                        <li><a href="#" class="tw"><i class="fab fa-weixin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="footer-widget mb-50">
+                                <div class="fw-title fw-title-two mb-25">
+                                    <h4 class="title">信誉认证</h4>
+                                </div>
+                                <div class="fw-solutions">
+                                    <ul>
+                                        <li><img src="{$template}/img/images/solutions_logo01.png" alt=""></li>
+                                        <li><img src="{$template}/img/images/solutions_logo02.png" alt=""></li>
+                                        <li><img src="{$template}/img/images/solutions_logo03.png" alt=""></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-wrap-two">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="copyright-text">
+                                <p>{$frontend.copyright | default="开发作者：红牛 qq32579135"}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="payment-method-img">
+                                <img src="{$template}/img/images/payment_method.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer-area-end -->
+
+
+
+
+		<!-- JS here -->
+        <script src="{$template}/js/vendor/jquery-3.5.0.min.js"></script>
+        <script src="{$template}/js/popper.min.js"></script>
+        <script src="{$template}/js/bootstrap.min.js"></script>
+        <script src="{$template}/js/isotope.pkgd.min.js"></script>
+        <script src="{$template}/js/imagesloaded.pkgd.min.js"></script>
+        <script src="{$template}/js/jquery.magnific-popup.min.js"></script>
+        <script src="{$template}/js/jquery.nice-select.min.js"></script>
+        <script src="{$template}/js/jquery.odometer.min.js"></script>
+        <script src="{$template}/js/jquery.countdown.min.js"></script>
+        <script src="{$template}/js/jquery.appear.js"></script>
+        <script src="{$template}/js/slick.min.js"></script>
+        <script src="{$template}/js/ajax-form.js"></script>
+        <script src="{$template}/js/wow.min.js"></script>
+        <script src="{$template}/js/plugins.js"></script>
+        <script src="{$template}/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>后台登录</title>
+	<meta name="renderer" content="webkit">	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">	
+	<meta name="apple-mobile-web-app-capable" content="yes">	
+	<meta name="format-detection" content="telephone=no">	
+	<!-- load css -->
+	<link rel="stylesheet" href="__STATIC__/admin/lib/layui-v2.6.3/css/layui.css" media="all">
+	{include file="login/css"}
+	<link rel="icon" href="__STATIC__/admin/images/favicon.ico">
+</head>
+<body>
+<div class="layui-canvs"></div>
+<div class="layui-layout layui-layout-login">
+	<h1>
+		 <strong>开普勒管理系统后台</strong>
+		 <em>Management System</em>
+	</h1>
+	<div class="layui-user-icon larry-login">
+		 <input type="text" id="name" placeholder="账号" class="login_txtbx"/>
+	</div>
+	<div class="layui-pwd-icon larry-login">
+		 <input type="password" id="password" placeholder="密码" class="login_txtbx"/>
+	</div>
+    <div class="layui-val-icon larry-login">
+    	<div class="layui-code-box">
+    		<input type="text" id="captcha" name="code" placeholder="验证码" maxlength="4" class="login_txtbx">
+            <img src="{:captcha_src()}" alt="" class="verifyImg" id="verifyImg" onclick="shaxin_captcha()">
+    	</div>
+    </div>
+    <div class="layui-submit larry-login">
+    	<input type="button" onclick="dulogin()" value="立即登陆" class="submit_btn"/>
+    </div>
+    <div class="layui-login-text">
+    	<p>©2021 开普勒 版权所有</p>
+    </div>
+</div>
+{include file="public/jquery"}
+<script type="text/javascript">
+$(function(){
+	$(".layui-canvs").jParticle({
+		background: "#141414",
+		color: "#E6E6E6"
+	});
+
+	//登录链接测试，使用时可删除
+	$(".submit_btn").click(function(){
+	  location.href="index.html";
+	});
+});
+function dulogin(){
+    var name = $('#name').val(),password = $('#password').val(),captcha = $('#captcha').val();
+    
+    if(!name || name == ''){
+        layer.msg('请输入账号');
+        shaxin_captcha();
+        return;
+    }
+    
+    if(!password || password == ''){
+        layer.msg('请输入密码');
+        shaxin_captcha();
+        return;
+    }
+    
+    if(!captcha || captcha == ''){
+        layer.msg('请输入验证码');
+        return;        
+    }
+    var index = layer.load();
+    $.post('/admin_dulogin',{'name':name,'password':password,'captcha':captcha},function(res){
+        if(res.code>0){
+            layer.msg(res.msg);
+            shaxin_captcha();
+            layer.close(index);  
+        }else{
+            layer.msg(res.msg);
+            layer.close(index);  
+            setTimeout(function(){window.location.href="/adminKPL"},1000);
+        }
+    },'json');
+}
+
+//刷新验证码
+function shaxin_captcha(){
+    var src = '{:captcha_src()}'
+    
+    $('#verifyImg').attr('src',src);
+}
+</script>
+</body>
+</html>

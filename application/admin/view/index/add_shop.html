@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>创建商品</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="__STATIC__/admin/lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="__STATIC__/admin/css/public.css" media="all">
+    <link rel="stylesheet" href="__STATIC__/admin/js/lay-module/step-lay/step.css" media="all">
+        <!--百度-->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <div class="layui-fluid">
+            <div class="layui-card">
+                <div class="layui-card-body" style="padding-top: 20px;">
+                    <div class="layui-carousel" id="stepForm" lay-filter="stepForm" style="margin: 0 auto;">
+                        <div carousel-item>
+                            <div>
+                                <form class="layui-form" style="margin: 0 auto;max-width: 460px;padding-top: 40px;height:100%;">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">商品标题:</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" id="title" value="独享经济版" placeholder="请填宣传时的服务器标题" class="layui-input" lay-verify="text" required />
+
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item-inline">
+                                        <label class="layui-form-label">带宽:</label>
+                                        <div class="layui-input-block">
+                                            <input type="number" id="bandwidth" placeholder="请填写限制的网页空间大小" value="1" class="layui-input" lay-verify="number" required>
+                                            <tip>单位MB，建议1MB起，根据不同配置增加</tip>
+                                        </div>
+                                    </div>                                       
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">数据库:</label>
+                                        <div class="layui-input-block">
+                                            <input type="number" id="mysql" placeholder="请填写限制的数据库大小" value="200" class="layui-input" lay-verify="number" required>
+                                            <tip>单位MB，建议200MB起，根据不同配置增加</tip>
+                                        </div>
+                                    </div>                                    
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">空间大小:</label>
+                                        <div class="layui-input-block">
+                                            <input type="number" id="web_size" placeholder="请填写限制的网页空间大小" value="1" class="layui-input" lay-verify="number" required>
+                                            <tip>单位G，建议1GB起，根据不同配置增加</tip>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">IP地址:</label>
+                                        <div class="layui-input-block">
+                                            <select lay-verify="required" id="ip">
+                                                <option value="独享" selected>独享</option>
+                                                <option value="公共">公共</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block">
+                                            <button class="layui-btn" lay-submit lay-filter="formStep">
+                                                &emsp;下一步&emsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div>
+                                <form class="layui-form" style="margin: 0 auto;max-width: 460px;padding-top: 40px;">
+                                    
+                                     <input type="hidden" id="title1">
+                                     <input type="hidden" id="bandwidth1">
+                                     <input type="hidden" id="mysql1">
+                                     <input type="hidden" id="web_size1">
+                                     <input type="hidden" id="ip1">
+                                     
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">月付定价:</label>
+                                        <div class="layui-input-inline">
+                                            <input type="number" id="Ypricing" placeholder="" value="" class="layui-input" lay-verify="number" required>
+                                        </div>
+                                         <tip>元/月</tip>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">年付定价:</label>
+                                        <div class="layui-input-inline">
+                                            <input type="number" id="Npricing" placeholder="" value="" class="layui-input" lay-verify="number" required>
+                                        </div>
+                                            <tip>元/年</tip>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">服务器介绍:</label>
+                                        <div class="layui-input-block">
+                                            <textarea placeholder="" id="content" value="" class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-input-block">
+                                            <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
+                                            <button class="layui-btn" lay-submit lay-filter="formStep2">
+                                                &emsp;确认入款&emsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div>
+                                <div style="text-align: center;margin-top: 90px;">
+                                    <i class="layui-icon layui-circle"
+                                       style="color: white;font-size:30px;font-weight:bold;background: #52C41A;padding: 20px;line-height: 80px;">&#xe605;</i>
+                                    <div style="font-size: 24px;color: #333;font-weight: 500;margin-top: 30px;">
+                                        发布成功
+                                    </div>
+                                    <div style="font-size: 14px;color: #666;margin-top: 20px;">前往查看</div>
+                                </div>
+                                <div style="text-align: center;margin-top: 50px;">
+                                    <button class="layui-btn next">再创一个</button>
+                                    <button class="layui-btn layui-btn-primary">查看服务器</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div style="height:300px;"></div>
+                    <hr>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="__STATIC__/admin/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script src="__STATIC__/admin/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script>
+    layui.use([ 'form', 'step'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            step = layui.step;
+
+        step.render({
+            elem: '#stepForm',
+            filter: 'stepForm',
+            width: '100%', //设置容器宽度
+            stepWidth: '750px',
+            height: '500px',
+            stepItems: [{
+                title: '服务器配置'
+            }, {
+                title: '定价信息'
+            }, {
+                title: '完成'
+            }]
+        });
+
+
+        form.on('submit(formStep)', function (data) {
+            //console.log(data);
+            
+            var title = $('#title').val();
+            if(!title){
+                layer.msg('请填写服务器标题',{icon:2});
+            }
+            var bandwidth = $('#bandwidth').val();
+            var mysql = $('#mysql').val();
+            var web_size = $('#web_size').val();
+            var ip = $('#ip').val();
+            //console.log(title,bandwidth,mysql,web_size,ip)
+            $('#title1').val(title);
+            $('#bandwidth1').val(bandwidth);
+            $('#mysql1').val(mysql);
+            $('#web_size1').val(web_size);
+            $('#ip1').val(ip);
+            
+            
+            step.next('#stepForm');
+            return false;
+        });
+
+        form.on('submit(formStep2)', function (data) {
+            var Ypricing = $('#Ypricing').val();
+            var Npricing = $('#Npricing').val();
+            var content = $('#content').val();
+            var title = $('#title1').val();
+            var bandwidth = $('#bandwidth1').val();
+            var mysql = $('#mysql1').val();
+            var web_size = $('#web_size1').val();
+            var ip = $('#ip1').val();
+            
+            $.post('/api_app_shop',{'title':title,'bandwidth':bandwidth,'mysql':mysql,'web_size':web_size,'ip':ip,'Ypricing':Ypricing,'Npricing':Npricing,'content':content},function(res){
+                if(res.code>0){
+                    layer.msg('失败',{icon:2});
+                }else{
+                    layer.msg('成功',{icon:1});
+                }
+
+            });
+            
+            step.next('#stepForm');
+            return false;
+        });
+
+        $('.pre').click(function () {
+            step.pre('#stepForm');
+        });
+
+        $('.next').click(function () {
+            step.next('#stepForm');
+        });
+    })
+</script>
+</body>
+</html>

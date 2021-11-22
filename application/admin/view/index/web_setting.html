@@ -1,0 +1,84 @@
+{include file="public/head_menu" /}
+<body>
+<style>
+    .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+</style>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <div class="layui-form layuimini-form">
+            
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label required">网站logo</label>
+                <img id="logoImg" src="/img/logo.png">
+                <br>
+                <label class="layui-form-label"></label>
+                <button type="button" class="layui-btn layui-btn-danger" id="logo"><i class="layui-icon"></i>上传图片</button>
+                <div class="layui-inline layui-word-aux">
+                  大小限制为 4mb  格式限制为 png
+                </div>
+            </div>
+            
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label required">网站icon</label>
+                <img id="iconImg" src="/img/favicon.png">
+                <br>
+                <label class="layui-form-label"></label>
+                <button type="button" class="layui-btn layui-btn-danger" id="icon"><i class="layui-icon"></i>上传图片</button>
+                <div class="layui-inline layui-word-aux">
+                  大小限制为 4mb  格式限制为 png
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/admin/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+
+<script>
+    layui.use(['form','layer','upload'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            ,upload = layui.upload;
+
+ 
+        form.on('submit(setting)', function (data) {
+            console.log(data.field);
+            $.post('/add_logo',data.field,function(res){
+                if(res.code>0){
+                    layer.msg("失败",{icon:2});
+                }else{
+                    layer.msg("成功",{icon:1});
+                }
+            });
+        });
+        
+         //设定文件大小限制
+      upload.render({
+        elem: '#logo'
+        ,url: '/api_logo_img' 
+        ,size: 4096 //限制文件大小，单位 KB
+        ,done: function(res){
+          layer.msg('上传成功');
+          console.log(res)
+          $('#logoImg').attr('src',res.msg);
+        }
+      });
+
+      //设定文件大小限制
+      upload.render({
+        elem: '#icon'
+        ,url: '/admin/api/api_icon_img' 
+        ,size: 4096 //限制文件大小，单位 KB
+        ,done: function(res){
+          layer.msg('上传成功');
+          console.log(res)
+          $('#iconImg').attr('src',res.msg);
+        }
+      });
+    
+    });
+</script>
+</body>
+</html>

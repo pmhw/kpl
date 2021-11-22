@@ -1,0 +1,103 @@
+<!--工单详情界面-->
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8; X-Wap-Proxy-Cookie=none" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link type="text/css" href="app/style/chat.css?v=1.2" rel="stylesheet" />
+    <style>
+         *, ::before, ::after {
+            box-sizing: border-box;
+        }
+         html,body{
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                padding-bottom: 160px; 
+            }
+        body{
+        max-width:800px;
+        margin:0 auto;
+                
+            }
+        .top{padding-left:10px;background-color: #eceff1;height:40px;line-height:40px;text-align:center;}
+        .foot{line-height:50px;text-align:center;font-size:12px;}
+        .write{height:40px;}
+        .write input { 
+            font-size: 16px;
+            float: left;
+            width: calc(100% - 60px);
+            height: 40px;
+            padding: 0 10px;
+            border-radius:0;
+            border: 0;
+            outline: none;
+            background:#eceff1;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 400;
+        }
+
+        .talk { position: fixed;bottom: 0;}
+        .right {
+           right:0;
+           font-size: 14px;
+           display:block;   
+        }
+        p{display: inline;}
+        .titleName2{color:#EE2C2C;}
+        .left {
+           left:0;
+           font-size: 14px;
+           display:block;
+        }
+        .titleName1{color:#54FF9F;}
+        .work_order_box{
+            display:block;
+            margin:5px;
+            bottom: 100px;
+            height:100%;
+        }
+        .send{color:#fff;text-decoration:none;width:60px; background-color: #007bff;display:inline-block;height: 40px;line-height:40px;text-align:center}
+        .send.disabled{background-color: #cccccc;}
+    </style>
+</head>
+<body>
+<div class="top"><span class="name">问题：{$data.work_order.describe}</span></div>
+<div class="work_order_box" >
+        {volist name="data.data" id="vo"}
+        <p class="left"><b class="{$vo.user_id ? 'titleName2':'titleName1'}">{$vo.user_id ? '我：':'官方：'}</b><br>{$vo.text}</p>
+        {/volist}
+        
+        <p class="left" id="footerMsg"> <b class="titleName2"></p>
+        
+        <div style="height:120px;"></div>
+</div>
+
+<div class="talk write">                
+        <input type="text" id="msg" maxlength="140" placeholder="写点什么吧..." />                
+        <a href="javascript:;" id="send" class="write-link send" onclick="send()">发送</a>
+</div>
+{include file="public/jquery"}
+<script>
+    function send(){
+        var msg = $('#msg').val()
+        var wk_id = {$data.work_order.id};
+        if(!msg){
+            layer.msg('内容为空');
+            return;
+        }
+        $('#footerMsg').before('<p class="right" id="div4" style="display:block;"> <b class="titleName2">我：</b><br>' + msg +'</p>');
+        $('html,body').animate({scrollTop:$('#footerMsg').offset().top}, 100);
+        $('#msg').val('');
+        
+        $.post('/add_mysql_wop',{'msg':msg,'wk_id':wk_id},function(res){
+            if(res.code>0){
+                layer.msg(res.msg,{icon:2});
+            }else{
+               layer.msg(res.msg,{icon:1}); 
+            }
+        },'json');
+    }
+</script>
+</body>
+</html>

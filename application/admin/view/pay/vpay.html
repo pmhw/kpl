@@ -1,0 +1,61 @@
+<!--V免签配置界面-->
+{include file="public/head_menu" /}
+<body>
+<style>
+    .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+</style>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <div class="layui-form layuimini-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="url" lay-verify="required" lay-reqtext="地址不能为空" placeholder="请填V免签地址"  value="{$vpay.url | default=''}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">密钥</label>
+                <div class="layui-input-block">
+                    <input type="text" name="token" lay-verify="required" lay-reqtext="密钥不能为空" placeholder="请填写V免签密钥"   value="{$vpay.token | default=''}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text" style="margin:0 0 20px 100px;"> 
+
+                <b><a href="https://gitee.com/szvone/vmqphp" target="_blank">V免签开源地址:https://gitee.com/szvone/vmqphp</a></b>
+
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/admin/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script src="__STATIC__/admin/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script>
+    layui.use(['form','miniTab'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            miniTab = layui.miniTab;
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            //console.log(data.field);
+            $.post('/add_vpay',data.field,function(res){
+                if(res.code>0){
+                    layer.msg('失败',{icon:2});
+                }else{
+                    layer.msg('成功',{icon:1});
+                }
+            });
+
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+{include file="public/head_menu" / }
+<style>
+    .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+</style>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-form layuimini-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" value="{$menu.name | default=''}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">链接</label>
+                <div class="layui-input-block">
+                    <input type="text" name="url" value="{$menu.url  | default=''}" class="layui-input">
+                    <tip>如果需要设置二级菜单请留空。</tip>
+                </div>
+            </div>
+            <div class="layui-form-item" style="{$data.id == 1?'display:none':''}">
+                <label class="layui-form-label">所属ID</label>
+                <div class="layui-input-block">
+                    <input type="text" name="gid" value="{$menu.gid | default=''}" class="layui-input">
+                    <tip>请填写一级菜单的ID。</tip>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button onclick="{$data.event_id == 1?'addMenu(':'editorMenu('}{$data.menu_id})" class="layui-btn layui-btn-normal" >{$data['event']}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/admin/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['layer', 'form'], function () {
+        var form = layui.form
+            ,layer = layui.layer;
+    });
+    
+    function addMenu(){
+        var id = {$data.id};
+        var name = $('input[name="name"]').val();
+        if(!name || name==''){
+            layer.msg('请填写菜单名称',{icon:2});
+            return;
+        }
+        //console.log(name);
+        var url = $('input[name="url"]').val();
+        
+        var gid = $('input[name="gid"]').val();
+        if({$data.id}==2){
+            if(!gid){
+                layer.msg('请填写二级菜单所属一级菜单的ID',{icon:2});
+                return;
+            }
+        }
+        
+        $.post('/addMenu',{'name':name,'url':url,'gid':gid,'id':id},function(res){
+            if(res.code>0){
+                layer.msg(res.msg,{icon:2});
+            }else{
+                layer.msg(res.msg,{icon:1});
+                location.reload();
+            }
+            
+        },'json');
+    }
+    
+    function editorMenu(aid){
+        var id = {$data.id};
+        var name = $('input[name="name"]').val();
+        if(!name || name==''){
+            layer.msg('请填写菜单名称',{icon:2});
+            return;
+        }
+        //console.log(name);
+        var url = $('input[name="url"]').val();
+        
+        var gid = $('input[name="gid"]').val();
+        if({$data.id}==2){
+            if(!gid){
+                layer.msg('请填写二级菜单所属一级菜单的ID',{icon:2});
+                return;
+            }
+        }
+        
+        $.post('/editorMenu',{'id':id,'name':name,'url':url,'gid':gid,'aid':aid},function(res){
+            if(res.code>0){
+                layer.msg(res.msg,{icon:2});
+            }else{
+                layer.msg(res.msg,{icon:1});
+                window.location.replace();
+            }
+        },'json');
+    }
+</script>
+</body>
+</html>
