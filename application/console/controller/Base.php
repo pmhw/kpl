@@ -19,7 +19,7 @@ class Base extends Controller
 		}
 		$index = Db::name('index')->where('key','bt')->find();
         if($index){
-            return $this->fetch();
+            
         }else{
              $this->error('请先配置您的宝塔API哦！');
         }
