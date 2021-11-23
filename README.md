@@ -55,3 +55,6 @@ location / {
 
 作者：RedBull qq32579135
 
+#### 支付说明
+
+V免签异步回调地址： 您的域名/vpay_notify （前往V免签后台配置）
