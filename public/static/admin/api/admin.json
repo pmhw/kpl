@@ -1,0 +1,215 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "admin_admin"
+  },
+  "logoInfo": {
+    "title": "开普勒",
+    "image": "/static/admin/images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "站点管理",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "打开前端",
+          "href": "index",
+          "icon": "fa fa-home",
+          "target": "_blank"
+        },
+        {
+          "title": "网站管理",
+          "href": "",
+          "icon": "fa fa-window-maximize",
+          "target": "_self",
+          "child": [
+             {
+              "title": "网站配置",
+              "href": "web_setting",
+              "icon": "fa fa-leaf",
+              "target": "_self"
+              
+            },
+            {
+              "title": "前端配置",
+              "href": "frontend",
+              "icon": "fa fa-globe",
+              "target": "_self"
+              
+            },
+            {
+              "title": "导航菜单",
+              "href": "page/welcome-1.html",
+              "icon": "fa fa-tachometer",
+              "target": "_self",
+              "child": [
+                    {
+                      "title": "一级菜单",
+                      "href": "menu1",
+                      "icon": "fa fa-certificate",
+                      "target": "_self"
+                    },
+                    {
+                      "title": "二级菜单",
+                      "href": "menu2",
+                      "icon": "fa fa-certificate",
+                      "target": "_self"
+                    }
+                  ]
+              
+            }       
+          ]
+        },
+        {
+          "title": "主题插件",
+          "href": "",
+          "icon": "fa fa-windows",
+          "target": "_self",
+          "child": [
+            {
+              "title": "主题列表",
+              "href": "theme",
+              "icon": "fa fa-tags",
+              "target": "_self"
+              
+            },
+            {
+              "title": "插件列表",
+              "href": "frontend",
+              "icon": "fa fa-terminal",
+              "target": "_self"
+              
+            }            
+          ]
+        }
+        
+      ]
+    },
+    {
+      "title": "BT管理",
+      "icon": "fa fa-lemon-o",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "配置中心",
+          "href": "",
+          "icon": "fa fa-dot-circle-o",
+          "target": "_self",
+          "child": [
+                {
+                  "title": "宝塔API",
+                  "href": "bt",
+                  "icon": "fa fa-skyatlas",
+                  "target": "_self"
+                }
+            ]
+        },
+        {
+          "title": "网站列表",
+          "href": "webList",
+          "icon": "fa fa-server",
+          "target": "_self"
+        },            
+        {
+          "title": "面板安全",
+          "href": "",
+          "icon": "fa fa-shield",
+          "target": "_self",
+           "child": [
+                {
+                  "title": "面板日志",
+                  "href": "bt_log",
+                  "icon": "fa fa-file-text-o",
+                  "target": "_self"
+                }
+            ]
+        }
+      ]
+    },
+    {
+      "title": "Console管理",
+      "icon": "fa fa-slideshare",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "收款配置",
+          "href": "",
+          "icon": "fa fa-credit-card",
+          "target": "",
+          "child": [
+            {
+              "title": "收款方式",
+              "href": "/pay_way",
+              "icon": "fa fa-money",
+              "target": "_self"
+            },
+            {
+              "title": "捷支付",
+              "href": "/jpay",
+              "icon": "fa fa-money",
+              "target": "_self"
+            },
+            {
+              "title": "V免签",
+              "href": "/vpay",
+              "icon": "fa fa-money",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "商品管理",
+          "href": "",
+          "icon": "fa fa-shopping-cart",
+          "target": "_self",
+          "child": [
+            {
+              "title": "商品列表",
+              "href": "shop_list",
+              "icon": "fa fa-square-o",
+              "target": "_self"
+            },
+            {
+              "title": "订单列表",
+              "href": "order_list",
+              "icon": "fa fa-square-o",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "工单管理",
+          "href": "work_order_list",
+          "icon": "fa fa-list-alt",
+          "target": "_self"
+        },
+        {
+          "title": "显示管理",
+          "href": "",
+          "icon": "fa fa-eye",
+          "target": "_self",
+          "child": [
+            {
+              "title": "console轮播图",
+              "href": "console_imgs",
+              "icon": "fa fa-image",
+              "target": "_self"
+            },
+            {
+              "title": "console公告",
+              "href": "console_affiche",
+              "icon": "fa fa-bullhorn",
+              "target": "_self"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

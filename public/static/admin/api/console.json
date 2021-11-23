@@ -1,0 +1,106 @@
+{
+  "homeInfo": {
+    "title": "控制台首页",
+    "href": "consoles"
+  },
+  "logoInfo": {
+    "title": "开普勒",
+    "image": "/static/admin/images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "账户",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "操作日志",
+          "href": "",
+          "icon": "fa fa-newspaper-o",
+          "target": "_blank"
+        },
+        {
+          "title": "账户安全",
+          "href": "",
+          "icon": "fa fa-shield",
+          "target": "_self",
+          "child": [
+            {
+              "title": "修改密码",
+              "href": "user_password",
+              "icon": "fa fa-gears",
+              "target": "_self"
+              
+            }
+          ]
+        }
+        
+      ]
+    },
+    {
+      "title": "产品",
+      "icon": "fa fa-lemon-o",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "我的虚拟主机",
+          "href": "",
+          "icon": "fa fa-server",
+          "target": "_self",
+          "child": [
+            {
+              "title": "虚拟机",
+              "href":  "myhost",
+              "icon": "fa fa-tasks",
+              "target": "_self"
+              
+            },
+            {
+              "title": "FTP",
+              "href":  "ftp",
+              "icon": "fa fa-hdd-o",
+              "target": "_self"
+              
+            },
+            {
+              "title": "数据库",
+              "href":  "mysql",
+              "icon": "fa fa-database",
+              "target": "_self"
+              
+            }            
+          ]
+        },
+        {
+          "title": "我的云服务器",
+          "href": "",
+          "icon": "fa fa-cloud",
+          "target": "_self"
+        }
+      ]
+    },
+    {
+      "title": "工单",
+      "icon": "fa fa-slideshare",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "提交工单",
+          "href": "add_work_order",
+          "icon": "fa fa-pencil-square",
+          "target": "_self"
+        },
+        {
+          "title": "查看工单",
+          "href": "look_work_order",
+          "icon": "fa fa-list-alt",
+          "target": "_self"
+        }
+      ]
+    }
+  ]
+}
